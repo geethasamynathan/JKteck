@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            var ulemps = $("#ulemployees");
+            $('#btnGetEmp').click(function () {
+                console.log('button clicked')
+                $.ajax({
+                    type: "GET",
+                    url: "api/Employees",
+                    dataType: "json",
+                    success: function (data1) {
+                        console.log('request success');
+                        ulemps.empty();
+                        $.each(data1, function (index,emp) {
+                            console.log("index" + index);
+                            ulemps.append('<li>' + emp.Id + ' - ' + emp.Name+'</li');
+
+                        });
+                    }
+                });
+            });
+            $("#btnClear").click(function () {
+                ulemps.empty();
+            })
+        });
+
+    </script>
+</head>
+<body>
+   
+    <button type="submit" id="btnGetEmp">Get All employees</button>
+    <button type="submit" id="btnClear">Clear</button>
+    <ul id="ulemployees">
+
+    </ul>
+
+</body>
+</html>
